@@ -1,0 +1,9 @@
+ .question-list input[type=radio] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+.questions-choice {
+	display: table;
+	width: 100%;
+	margin-bottom: 20px;
+}

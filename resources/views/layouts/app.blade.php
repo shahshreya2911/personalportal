@@ -19,7 +19,7 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ url(mix('assets/css/vendor.css')) }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ url(mix('assets/css/app.css')) }}">
-
+    <link media="all" type="text/css" rel="stylesheet" href="{{ url('assets/css/custom.css') }}">
     @yield('styles')
 </head>
 <body>

@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-
+<div class="question-list">
 <div class="row">
     <div class="col-md-3">
         <div class="card">
@@ -74,22 +74,25 @@
             <div class="panel-heading"></div>
             <div class="card-body">
 			@if (empty($userQuestionAnwser))
-				Current Level A
+				<h3>Current Level A</h3>
 			@else
-			{{ $userQuestionAnwser->category->name }}
+			<h3>{{ $userQuestionAnwser->category->name }}</h3>
 			@endif	
-			 </br>
-			Q.1: {{ $questions->sentence }}
-             
-			@foreach ($questions->answer as $answer)
-				<input type="radio" name="answer" value="{{ $answer->is_correct}}">{{ $answer->answer}}</br>
-			@endforeach	
-			<a href='#' >Next</a>
+			
+            
+            <div class="questions-choice"> 
+    			<h4>Q.1: {{ $questions->sentence }}</h4>
+                 
+    			@foreach ($questions->answer as $answer)
+    				<input type="radio" name="answer" value="{{ $answer->is_correct}}">{{ $answer->answer}}</br>
+    			@endforeach
+            </div>
+			<a href='#' class="btn btn-primary btn-lg">Next</a>
             </div>
         </div>
     </div>
 </div>
-
+</div>
 @stop
 
 @section('scripts')
