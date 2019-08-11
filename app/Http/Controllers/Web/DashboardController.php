@@ -43,7 +43,12 @@ class DashboardController extends Controller
             return $this->adminDashboard();
         }
 
-        return $this->defaultDashboard();
+        return $this->exam();
+    }
+	
+	private function exam()
+    {
+        return view('dashboard.exam', compact('activities'));
     }
 
     /**

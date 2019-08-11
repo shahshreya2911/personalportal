@@ -6,22 +6,8 @@
 
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
-Route::group(['prefix' => 'questions'], function () {
-    Route::get('/', 'QuestionsController@index')->name('questions');
-    Route::get('create', 'QuestionsController@create')->name('question.create');
-    Route::post('store', 'QuestionsController@store')->name('question.store');
-    Route::get('edit/{id}', 'QuestionsController@edit')->name('questions.edit');
-    Route::post('storeedit', 'QuestionsController@storeedit')->name('question.storeedit');
-    
-});
-Route::group(['prefix' => 'choices'], function () {
-    Route::get('/', 'QuestionsController@indexChoice')->name('choices');
-    Route::get('create', 'QuestionsController@createChoice')->name('choices.create');
-     Route::post('store', 'QuestionsController@storeChoice')->name('choices.store');
-    Route::get('edit/{id}', 'QuestionsController@editChoice')->name('choices.edit');
-    Route::post('storeedit', 'QuestionsController@storeeditChoice')->name('choices.storeedit');
 
-});
+
 Route::get('logout', [
     'as' => 'auth.logout',
     'uses' => 'Auth\AuthController@getLogout'
@@ -74,7 +60,32 @@ Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProvider
 Route::get('auth/twitter/email', 'Auth\SocialAuthController@getTwitterEmail');
 Route::post('auth/twitter/email', 'Auth\SocialAuthController@postTwitterEmail');
 
+
 Route::group(['middleware' => 'auth'], function () {
+	Route::group(['prefix' => 'exam'], function () {
+		Route::get('/', 'ExamController@index')->name('questions');
+	});	
+});	
+Route::group(['middleware' => 'auth'], function () {
+
+	Route::group(['prefix' => 'questions'], function () {
+		Route::get('/', 'QuestionsController@index')->name('questions');
+		Route::get('create', 'QuestionsController@create')->name('question.create');
+		Route::post('store', 'QuestionsController@store')->name('question.store');
+		Route::get('edit/{id}', 'QuestionsController@edit')->name('questions.edit');
+		Route::post('storeedit', 'QuestionsController@storeedit')->name('question.storeedit');
+		
+	});
+	Route::group(['prefix' => 'choices'], function () {
+		Route::get('/', 'QuestionsController@indexChoice')->name('choices');
+		Route::get('create', 'QuestionsController@createChoice')->name('choices.create');
+		 Route::post('store', 'QuestionsController@storeChoice')->name('choices.store');
+		Route::get('edit/{id}', 'QuestionsController@editChoice')->name('choices.edit');
+		Route::post('storeedit', 'QuestionsController@storeeditChoice')->name('choices.storeedit');
+
+	});
+	
+	
 
     /**
      * Impersonate Routes
