@@ -7,9 +7,12 @@ use Vanguard\Repositories\Activity\ActivityRepository;
 use Vanguard\Repositories\User\UserRepository;
 use Vanguard\Support\Enum\UserStatus;
 use Vanguard\Models\UserQuestionAnwser;
+use Vanguard\Models\QuestionChoices;
 use Vanguard\Models\Questions;
+use Vanguard\Models\Categories;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
@@ -33,6 +36,13 @@ class ExamController extends Controller
         $this->users = $users;
         $this->activities = $activities;
     }
+	
+	public function dashboard()
+    {
+		$categories = Categories::orderBy('id', 'ASC')->get();
+		
+		return view('exam.dashboard', compact('questions', 'categories'));
+	}
 
     /**
      * Displays dashboard based on user's role.
@@ -43,11 +53,103 @@ class ExamController extends Controller
     {
 		$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->first();
 		
-		$questions = Questions::limit(1)->first();
+		if (empty($userQuestionAnwser)) {
+			$questions = Questions::limit(1)->first();	
+			
+			$categoriesObj = Categories::find(1);
+			
+		} else {
+			$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->groupBy('category_id')->first();
+			
+			$questionIds = UserQuestionAnwser::select('question_id')
+			->where('user_id', Auth::user()->id)
+			->where('category_id', $userQuestionAnwser->category_id)
+			->pluck('question_id', 'question_id');
+			
+			$questions = Questions::where('level', $userQuestionAnwser->category_id)
+			->whereNotIn('id', $questionIds)
+			->orderBy('id', 'ASC')->limit(1)->first();
+			
+			$categoriesObj = Categories::find($userQuestionAnwser->category_id);
+			
+			if (empty($questions)) {
+				$categories = Categories::orderBy('id', 'ASC')->pluck('id', 'id');
+				
+				$categoryids = UserQuestionAnwser::where('user_id', Auth::user()->id)
+				->latest('created_at')
+				->groupBy('category_id')
+				->orderBy('id', 'ASC')
+				->pluck('category_id', 'category_id');
+				
+				$newCategoryArray = [];
+				foreach ($categories as $key => $category) {
+					
+					if (!isset($categoryids[$key])) {
+						$newCategoryArray[] = $key;	
+					}
+				}
+				
+				//dump($newCategoryArray);exit;
+				if (isset($newCategoryArray[0])) {
+					
+					$questions = Questions::where('level', $newCategoryArray[0])
+					->orderBy('id', 'ASC')
+					->limit(1)->first();	
+					
+					$categoriesObj = Categories::find($newCategoryArray[0]);
+				} else {
+					return redirect()->route('exam.questions.dashboard')
+					->withSuccess('Please select next exam or your exam level finsihed');
+				}
+				
+				
+				//dump($newCategoryArray);exit;
+				
+			}
+			
+			//dump($userQuestionAnwser);exit;
+		}
+		
 		
 		//dump($questions->answer);exit;
 		
-        return view('exam.index', compact('questions', 'userQuestionAnwser'));
+        return view('exam.index', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+    }
+	
+	public function store(Request $request)
+    {
+		$questionChoices = QuestionChoices::find($request->get('answer_id'));
+		
+		$userQuestionAnwser = new UserQuestionAnwser();
+		$userQuestionAnwser->user_id = Auth::user()->id;
+		$userQuestionAnwser->category_id = $request->get('category_id');
+		$userQuestionAnwser->question_id = $request->get('question_id');
+		
+		$userQuestionAnwser->answer_id = $request->get('answer_id');
+		
+		$userQuestionAnwser->status = $questionChoices->is_correct;
+		$userQuestionAnwser->save();
+		
+		
+		//$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->first();
+		
+		//$questions = Questions::limit(1)->first();
+		
+		//dump($questions->answer);exit;
+		
+		$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->groupBy('category_id')->first();
+			
+		$questionIds = UserQuestionAnwser::select('question_id')
+		->where('user_id', Auth::user()->id)
+		->where('category_id', $userQuestionAnwser->category_id)
+		->pluck('question_id', 'question_id');
+		
+		$questions = Questions::where('level', $userQuestionAnwser->category_id)
+		->whereNotIn('id', $questionIds)->limit(1)->first();
+		
+		$categoriesObj = Categories::find($userQuestionAnwser->category_id);
+		
+		return view('exam._list', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
     }
 
     /**

@@ -11,92 +11,54 @@
 
 @section('content')
 <div class="question-list">
-<div class="row">
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <a href="{{ route('profile') }}" class="text-center no-decoration">
-                    <div class="icon my-3">
-                        <i class="fas fa-user fa-2x"></i>
-                    </div>
-                    <p class="lead mb-0">@lang('app.update_profile')</p>
-                </a>
-            </div>
-        </div>
-    </div>
 
-    @if (config('session.driver') == 'database')
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <a href="{{ route('profile.sessions') }}" class="text-center  no-decoration">
-                        <div class="icon my-3">
-                            <i class="fa fa-list fa-2x"></i>
-                        </div>
-                        <p class="lead mb-0">@lang('app.my_sessions')</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    @endif
 
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <a href="{{ route('profile.activity') }}" class="text-center no-decoration">
-                    <div class="icon my-3">
-                        <i class="fas fa-server fa-2x"></i>
-                    </div>
-                    <p class="lead mb-0">@lang('app.activity_log')</p>
-                </a>
-            </div>
-        </div>
-
-    </div>
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <a href="{{ route('auth.logout') }}" class="text-center no-decoration">
-                    <div class="icon my-3">
-                        <i class="fas fa-sign-out-alt fa-2x"></i>
-                    </div>
-                    <p class="lead mb-0">@lang('app.logout')</p>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="panel-heading"></div>
-            <div class="card-body">
-			@if (empty($userQuestionAnwser))
-				<h3>Current Level A</h3>
-			@else
-			<h3>{{ $userQuestionAnwser->category->name }}</h3>
-			@endif	
-			
-            
-            <div class="questions-choice"> 
-    			<h4>Q.1: {{ $questions->sentence }}</h4>
-                 
-    			@foreach ($questions->answer as $answer)
-                <div class="custom-control custom-checkbox">
-    				<input type="radio" name="answer" value="{{ $answer->is_correct}}">{{ $answer->answer}}
-                </div>
-    			@endforeach
-            </div>
-			<a href='#' class="btn btn-primary btn-lg">Next</a>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="panel-heading"></div>
+					<div class="card-body">
+							
+						<form name='frm' id='frm' action='#'>	
+							<div id='questions_next' class="questions-choice">
+							
+								@include('exam._list')
+							</div>
+							<a href='#' id='next' class="btn btn-primary btn-lg">Next</a>
+						</form>
+					</div>
+				
+			</div>
+		</div>
+	</div>
 </div>
 @stop
 
 @section('scripts')
-    
+	<script>
+		$('#next').click(function () {
+			category_id = $('#category_id').val();
+			question_id = $('#question_id').val();
+			answer_id = $('input[name=answer]:checked').val();
+			
+			var url = "{{ route('exam.questions.store')}}";
+			//popup_loader_pattern_two('loaderid');
+			$.ajax({
+			  url: url,
+			  type: "post",
+			  data: {'category_id': category_id ,'question_id': question_id,'answer_id': answer_id, '_token': "{{ csrf_token() }}"},
+			  success: function(data){
+				  
+				
+				//loader_processing();
+				$('#questions_next').html(data);	
+				
+				if ($("#finish_exam").is(':visible')) {
+					$('#next').hide();
+				}
+				//$('#loaderid').html(''); 
+			  }
+			});
+		});
+	</script>	
 @stop

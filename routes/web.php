@@ -61,11 +61,12 @@ Route::get('auth/twitter/email', 'Auth\SocialAuthController@getTwitterEmail');
 Route::post('auth/twitter/email', 'Auth\SocialAuthController@postTwitterEmail');
 
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::group(['prefix' => 'exam'], function () {
-		Route::get('/', 'ExamController@index')->name('questions');
-	});	
+Route::group(['middleware' => 'auth', 'prefix' => 'exam', 'as' => 'exam.'], function () {
+	Route::get('/', 'ExamController@index')->name('questions');
+	Route::get('dashboard', 'ExamController@dashboard')->name('questions.dashboard');
+	Route::post('store', 'ExamController@store')->name('questions.store');
 });	
+
 Route::group(['middleware' => 'auth'], function () {
 
 	Route::group(['prefix' => 'questions'], function () {

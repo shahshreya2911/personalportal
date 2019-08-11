@@ -28,14 +28,23 @@
 
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item">
+            @if (Auth::user()->hasRole('Admin'))
+			<li class="nav-item">
                 <a class="nav-link {{ Request::is('/') ? 'active' : ''  }}" href="{{ route('dashboard') }}">
                     <i class="fas fa-home"></i>
                     <span>@lang('app.dashboard')</span>
                 </a>
             </li>
-
-            @permission('users.manage')
+			@else
+			<li class="nav-item">
+                <a class="nav-link {{ Request::is('exam') ? 'active' : ''  }}" href="{{ route('exam.questions.dashboard') }}">
+                    <i class="fas fa-home"></i>
+                    <span>@lang('app.dashboard')</span>
+                </a>
+            </li>
+            @endif
+			
+			@permission('users.manage')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('user*') ? 'active' : ''  }}" href="{{ route('user.list') }}">
                     <i class="fas fa-users"></i>
@@ -52,13 +61,17 @@
                 </a>
             </li>
             @endpermission
+			
+			@if (Auth::user()->hasRole('Admin'))
              <li class="nav-item">
                 <a class="nav-link {{ Request::is('questions*') ? 'active' : ''  }}" href="{{ route('questions') }}">
                     <i class="fas fa-users"></i>
                     <span>Questions</span>
                 </a>
             </li>
-           <!--  <li class="nav-item">
+			@endif
+           
+			<!--  <li class="nav-item">
                 <a class="nav-link {{ Request::is('choices*') ? 'active' : ''  }}" href="{{ route('choices') }}">
                     <i class="fas fa-users"></i>
                     <span>Choices</span>
