@@ -84,7 +84,9 @@
     			<h4>Q.1: {{ $questions->sentence }}</h4>
                  
     			@foreach ($questions->answer as $answer)
-    				<input type="radio" name="answer" value="{{ $answer->is_correct}}">{{ $answer->answer}}</br>
+                <div class="custom-control custom-checkbox">
+    				<input type="radio" name="answer" value="{{ $answer->is_correct}}">{{ $answer->answer}}
+                </div>
     			@endforeach
             </div>
 			<a href='#' class="btn btn-primary btn-lg">Next</a>
