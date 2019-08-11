@@ -16,4 +16,8 @@ class Questions extends Model
 	protected $table = 'questions';
 	protected $fillable = ['level', 'sentence', 'active'];
 	
+	public function answer() {
+		return $this->hasMany(QuestionChoices::class, 'fk_question_id', 'id');
+	}
+	
 }
