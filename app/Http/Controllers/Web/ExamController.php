@@ -121,15 +121,23 @@ class ExamController extends Controller
     {
 		$questionChoices = QuestionChoices::find($request->get('answer_id'));
 		
-		$userQuestionAnwser = new UserQuestionAnwser();
-		$userQuestionAnwser->user_id = Auth::user()->id;
-		$userQuestionAnwser->category_id = $request->get('category_id');
-		$userQuestionAnwser->question_id = $request->get('question_id');
+		$userQuestionAnwser = UserQuestionAnwser::where('category_id', $request->get('category_id'))
+		->where('category_id', $request->get('question_id'))
+		->where('answer_id', $request->get('answer_id'))
+		->where('user_id', Auth::user()->id)->count();
 		
-		$userQuestionAnwser->answer_id = $request->get('answer_id');
-		
-		$userQuestionAnwser->status = $questionChoices->is_correct;
-		$userQuestionAnwser->save();
+		if ($userQuestionAnwser == 0) {
+			$userQuestionAnwser = new UserQuestionAnwser();
+			$userQuestionAnwser->user_id = Auth::user()->id;
+			$userQuestionAnwser->category_id = $request->get('category_id');
+			$userQuestionAnwser->question_id = $request->get('question_id');
+			
+			$userQuestionAnwser->answer_id = $request->get('answer_id');
+			
+			$userQuestionAnwser->status = $questionChoices->is_correct;
+			$userQuestionAnwser->save();	
+		}
+
 		
 		
 		//$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->first();
