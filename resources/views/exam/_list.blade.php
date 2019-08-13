@@ -13,5 +13,5 @@
 		</div>
 	@endforeach
 @else
-	<div id='finish_exam'>{{ $userQuestionAnwser->category->name }} exam finsihed <a href='{{ route('exam.questions.dashboard')}}'>Dashboard</a></div>
+	<div id='finish_exam'>{{ $userQuestionAnwser->category->name }} exam Finished <a href='{{ route('exam.questions.dashboard')}}'>Dashboard</a></div>
 @endif	
