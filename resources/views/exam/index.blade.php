@@ -69,7 +69,7 @@
         		}
         		$('#sentence-error').html(msg);
         		$('.invalid-feedback').css('display','block');
-    		}	
+    		}		
 
 			});
 		});

@@ -4,6 +4,7 @@ namespace Vanguard\Http\Controllers\Web;
 
 use Vanguard\Http\Controllers\Controller;
 use Vanguard\Repositories\Activity\ActivityRepository;
+use Vanguard\Http\Requests\Question\CreateAnswerRequest;
 use Vanguard\Repositories\User\UserRepository;
 use Vanguard\Support\Enum\UserStatus;
 use Vanguard\Models\UserQuestionAnwser;
@@ -116,7 +117,7 @@ class ExamController extends Controller
         return view('exam.index', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
     }
 	
-	public function store(Request $request)
+	public function store(CreateAnswerRequest $request)
     {
 		$questionChoices = QuestionChoices::find($request->get('answer_id'));
 		
