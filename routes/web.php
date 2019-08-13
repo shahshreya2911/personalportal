@@ -7,6 +7,11 @@
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 
+Route::get('clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
+
 
 Route::get('logout', [
     'as' => 'auth.logout',
