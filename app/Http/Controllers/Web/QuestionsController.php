@@ -74,11 +74,11 @@ class QuestionsController extends Controller
 
         return view('questions.edit', compact('question','categories','choices'));
     }
-    public function storeedit(CreateChoiceRequest $request){
+    public function storeedit(request $request){
      /* print_r($request->all());
       exit();*/
-        $answers = $request->input('answer'); 
- 
+      $answers = $request->input('answer'); 
+      if (!empty($answers)) {
         foreach($answers as $row){
            
             if(!empty($row['ansid'])){
@@ -88,16 +88,17 @@ class QuestionsController extends Controller
                 $score->save(); 
                
             }else {
-                 
+                if(!empty($row['answer'])){
                 $scores = new Choices();
                 $scores->fk_question_id = $request->questionid;
                 $scores->answer = $row['answer']; 
                 //$scores->is_correct = $row['is_correct']; 
                 $scores->save();
+                }
             }
             
         }
-       
+      }
         $task = Questions::find($request->questionid);
         $task->sentence = $request['sentence'];
         $task->level = $request['level'];
