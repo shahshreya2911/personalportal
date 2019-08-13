@@ -26,7 +26,7 @@
 					        <div class="card widget">
 					            <div class="card-body">
 					                <div class="row">
-					                    <div class="p-3 text-success flex-1">
+					                    <div class="p-3 text-success flex-1" style="color: #232e6e!important;">
 					                        <i class="fa fa-book fa-3x"></i>
 					                    </div>
 

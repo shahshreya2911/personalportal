@@ -4,7 +4,7 @@ function appendRow()
    var d = document.getElementById('div');
    
    	 x++;
-     d.innerHTML += "<div class='row'><div class='col-md-6'><div class='form-group'><input type='text' class='input form-control' id='tst"+ x +"' name='answer' ><input type='button' id='btSubmit"+ x +"' class='btn' value='Submit' onclick='getTextValue()' /> <input type='button' class='remove_this btn btn-danger' value='Remove Button' id='removeButton"+ x +"' /></div></div></div>";   
+     d.innerHTML += "<div class='row'><div class='col-md-6'><div class='form-group'><input type='text' class='input form-control' id='tst"+ x +"' name='answer' required ><input type='button' id='btSubmit"+ x +"' class='btn' value='Submit' onclick='getTextValue()' /> <input type='button' class='remove_this btn btn-danger' value='Remove Button' id='removeButton"+ x +"' /></div></div></div>";   
     $(".addanswer").attr('disabled','disabled');
    
 }
@@ -15,7 +15,7 @@ jQuery(document).on('click', '.remove_this', function() {
 });
 
  
-   
+    
 
 var values = new Array();
 function getTextValue() {

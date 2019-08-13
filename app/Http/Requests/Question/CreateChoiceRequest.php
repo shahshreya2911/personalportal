@@ -15,9 +15,11 @@ class CreateChoiceRequest extends Request
     public function rules()
     {
         $rules = [
-            'fk_question_id' => 'required',
-            'answer' => 'required',
-            'active' => 'required'
+            //'fk_question_id' => 'required',
+           'answer' => [
+                'answer' => 'required'
+            ]
+         
         ];
         return $rules;
     }

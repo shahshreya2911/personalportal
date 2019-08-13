@@ -74,10 +74,11 @@ class QuestionsController extends Controller
 
         return view('questions.edit', compact('question','categories','choices'));
     }
-    public function storeedit(request $request){
-       // echo $id;
+    public function storeedit(CreateChoiceRequest $request){
+     /* print_r($request->all());
+      exit();*/
         $answers = $request->input('answer'); 
-
+ 
         foreach($answers as $row){
            
             if(!empty($row['ansid'])){
