@@ -4,6 +4,7 @@
 	<input type="hidden" name="category_id" id="category_id" value="{{ $categoriesObj->id }}">
 	
 	<h3>{{ $categoriesObj->name }}</h3>
+	<span id="sentence-error" class="invalid-feedback"></span>
 	<h4>Question: {{ $questions->sentence }}</h4>
 								 
 	@foreach ($questions->answer as $answer)

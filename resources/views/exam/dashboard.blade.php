@@ -18,10 +18,21 @@
 			<div class="card">
 				<div class="panel-heading"></div>
 					<div class="card-body">
+						<div class="row">
 						<?php $i = 0;?>	
 						<?php $flag = false;?>	
 						<?php foreach ($categories as $category):?>
-							{{ $category->name}}
+						<div class="col-xl-3 ">
+					        <div class="card widget">
+					            <div class="card-body">
+					                <div class="row">
+					                    <div class="p-3 text-success flex-1">
+					                        <i class="fa fa-book fa-3x"></i>
+					                    </div>
+
+					                    <div class="pr-3">
+							<h2 class="text-right">{{ $category->name}}</h2>
+							<div class="text-muted">
 							@if (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '2' && $flag === false)
 								<a href='{{ route('exam.questions')}}'>Start Exam</a>
 								<?php $flag = true;?>
@@ -30,12 +41,21 @@
 								<?php $flag = true;?>
 							@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '4' && $flag === false)	
 								<a href='#'>Exam Finished</a>
+							 Result: {{ \Vanguard\Helpers\Helper::correctAnswer($category->id, $i) }}
+
 							@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '5' || $flag === true)	
 								<a href='#'>Finish Above Exam First</a>
 							@endif	
+							</div>
 							</br>  
-						<?php $i++;?>		
+						<?php $i++;?>
+						 </div>
+                		</div>
+           			 </div>
+        			</div>
+    				</div>		
 						<?php endforeach;?>
+					</div>
 					</div>
 				
 			</div>

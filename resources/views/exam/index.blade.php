@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+@include('partials.messages')
 <div class="question-list">
 
 
@@ -20,6 +21,8 @@
 					<div class="card-body">
 							
 						<form name='frm' id='frm' action='#'>	
+							
+							
 							<div id='questions_next' class="questions-choice">
 							
 								@include('exam._list')
@@ -57,7 +60,17 @@
 					$('#next').hide();
 				}
 				//$('#loaderid').html(''); 
-			  }
+			  } ,
+    		error: function (jqXHR , exception) {
+    			console.log(jqXHR.status);
+    			var msg = '';
+    			 if (jqXHR.status === 422) {
+            		msg = 'Please Select Any Answer.';
+        		}
+        		$('#sentence-error').html(msg);
+        		$('.invalid-feedback').css('display','block');
+    		}	
+
 			});
 		});
 	</script>	
