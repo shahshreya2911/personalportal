@@ -5,6 +5,7 @@ namespace Vanguard\Helpers;
 use Vanguard\Models\Categories;
 use Vanguard\Models\UserQuestionAnwser;
 use Vanguard\Models\Questions;
+use Auth;
 
 class Helper
 {
@@ -31,4 +32,9 @@ class Helper
 			return 5;
 		}
 	}	
+	
+	public static function correctAnswer($categoryId, $i = ''){
+		$usertrueAnwser = UserQuestionAnwser::where('category_id', $categoryId)->where('user_id', Auth::user()->id)->where('status', 1)->count();
+		return $usertrueAnwser;
+	}
 }
