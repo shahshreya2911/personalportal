@@ -83,7 +83,7 @@ class QuestionsController extends Controller
             if(!empty($row['ansid'])){
                 $score = Choices::find($row['ansid']); 
                 $score->answer = $row['answer']; 
-                $score->is_correct = $row['is_correct']; 
+                //$score->is_correct = $row['is_correct']; 
                 $score->save(); 
                
             }else {
@@ -91,7 +91,7 @@ class QuestionsController extends Controller
                 $scores = new Choices();
                 $scores->fk_question_id = $request->questionid;
                 $scores->answer = $row['answer']; 
-                $scores->is_correct = $row['is_correct']; 
+                //$scores->is_correct = $row['is_correct']; 
                 $scores->save();
             }
             
