@@ -8,8 +8,17 @@
 	margin-bottom: 20px;
 }
 .text-muted>a {
-  
-    font-size: 14px;
+  	font-size: 14px;
     text-decoration: none;
     color: #232e6e;
 }
+#finish_exam>a {
+   color: #202b6c; 
+}
+#finish_exam{
+	color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 15px;
+}
+    
