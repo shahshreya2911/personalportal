@@ -11,6 +11,7 @@ use Vanguard\Models\UserQuestionAnwser;
 use Vanguard\Models\QuestionChoices;
 use Vanguard\Models\Questions;
 use Vanguard\Models\Categories;
+use Vanguard\Models\ParentCategory;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -38,11 +39,18 @@ class ExamController extends Controller
         $this->activities = $activities;
     }
 	
-	public function dashboard()
+	/*public function dashboard()
     {
 		$categories = Categories::orderBy('id', 'ASC')->get();
 		
-		return view('exam.dashboard', compact('questions', 'categories'));
+		return view('exam.dashboard', compact('categories'));
+	}*/
+	
+	public function dashboard()
+    {
+		$categories = ParentCategory::orderBy('id', 'ASC')->get();
+		
+		return view('exam.main_dashboard', compact('questions', 'categories'));
 	}
 
     /**
@@ -58,6 +66,8 @@ class ExamController extends Controller
 			$questions = Questions::limit(1)->first();	
 			
 			$categoriesObj = Categories::find(1);
+			
+			//dump($categoriesObj->parentCategory);exit;
 			
 		} else {
 			$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->groupBy('category_id')->first();
@@ -122,14 +132,19 @@ class ExamController extends Controller
 		$questionChoices = QuestionChoices::find($request->get('answer_id'));
 		
 		$userQuestionAnwser = UserQuestionAnwser::where('category_id', $request->get('category_id'))
-		->where('category_id', $request->get('question_id'))
+		->where('category_id', $request->get('category_id'))
 		->where('answer_id', $request->get('answer_id'))
 		->where('user_id', Auth::user()->id)->count();
 		
 		if ($userQuestionAnwser == 0) {
+			
+			$categoriesObj = Categories::find($request->get('category_id'));
+			
+			
 			$userQuestionAnwser = new UserQuestionAnwser();
 			$userQuestionAnwser->user_id = Auth::user()->id;
 			$userQuestionAnwser->category_id = $request->get('category_id');
+			$userQuestionAnwser->parent_category_id = $categoriesObj->parentCategory->id;
 			$userQuestionAnwser->question_id = $request->get('question_id');
 			
 			$userQuestionAnwser->answer_id = $request->get('answer_id');
