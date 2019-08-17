@@ -59,11 +59,11 @@ $('#child_category_div').hide();
 $('#parent_category').change(function () {
 	
 	$.ajax({
-		type: "GET",
-		url: "{{ URL::to('question.generate-child-category') }}",
+		type: "POST",
+		url: "{{ URL::to('questions/generate-child-category') }}",
 		data: {'parent_category_id': $(this).val(), _token: '{{ csrf_token() }}'},
 		success: function (data) {
-			$('#child_category').show();
+			$('#child_category_div').show();
 			$('#child_category').empty();
 			
 			// X table link field 

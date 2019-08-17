@@ -16,4 +16,8 @@ class ParentCategory extends Model
 	protected $table = 'parent_category';
 	
 	
+	public function category()
+    {
+        return $this->hasMany(Categories::class, 'category_id', 'id');
+    }
 }

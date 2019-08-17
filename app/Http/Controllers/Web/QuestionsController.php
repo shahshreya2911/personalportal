@@ -163,4 +163,16 @@ class QuestionsController extends Controller
         $task->save();
        
     }
+	
+	public function generateChildCategory(request $request)
+    {
+		if (!empty($request->parent_category_id)) {
+			return ParentCategory::find($request->parent_category_id)->category->pluck('name', 'id');	
+		} 
+		
+		return [];
+        
+
+
+    }
 }
