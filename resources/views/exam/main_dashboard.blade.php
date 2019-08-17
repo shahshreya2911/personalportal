@@ -61,6 +61,61 @@
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Result</h3>
+               <div class="table-responsive" id="users-table-wrapper">
+            <table class="table table-borderless table-striped">
+                <thead>
+                <tr>
+                    <th class="min-width-80">Student</th>
+                    <th class="min-width-150">User Id</th>
+                    <th class="min-width-100">Basic Vocabulary</th>
+                    <th class="min-width-80">Literacy Reading Comprehension</th>
+                    <th class="min-width-80">Adult Nummeracy</th>
+                    <th class="text-center min-width-150">Completion Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+	                	<td> K seloma</td>
+	                	<td>222333</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>4 April 2019</td>
+	                </tr>
+	                <tr>
+	                	<td> KJ seloma</td>
+	                	<td>222333</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>4 April 2019</td>
+	                </tr>
+	                <tr>
+	                	<td> M seloma</td>
+	                	<td>222333</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>50</td>
+	                	<td>4 April 2019</td>
+	                </tr>
+                </tbody>
+                <tfoot>
+			    <tr>
+			      <th colspan="5" align="right">Total Activities:</th>
+			      <th  align="right">150</th>
+			    </tr>
+			  </tfoot>
+            </table>
+        </div>
+            </div>
+        </div>
+    </div>
+	</div>
 </div>
 @stop
 
