@@ -54,7 +54,7 @@
         		 		<object data="{{url('upload/users/certificate/student.pdf')}}" type="application/pdf" width="100%" height="100%" style="height: 250px">
         		 			<p>Alternative text - include a link <a href="{{url('upload/users/certificate/student.pdf')}}">to the PDF!</a></p>
 						</object><br/>
-						<h5><a href="{{url('upload/users/certificate/student.pdf')}}">Download Certificate</a></h5>
+						<h5><a class="text-danger" href="{{url('upload/users/certificate/student.pdf')}}">Download Certificate</a></h5>
         		 	</div>
         		 </div>
         	</div>
