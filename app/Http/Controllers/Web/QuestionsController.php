@@ -8,6 +8,7 @@ use Vanguard\Http\Requests\Question\CreateChoiceRequest;
 use Vanguard\Http\Controllers\Controller;
 use Vanguard\Models\Questions;
 use Vanguard\Models\Categories;
+use Vanguard\Models\ParentCategory;
 use Vanguard\Models\Choices;
 use Vanguard\Repositories\Questions\QuestionsRepository;
 
@@ -39,8 +40,9 @@ class QuestionsController extends Controller
 
     public function create()
     {
-        $categories = Categories::all();
-        return view('questions.add', compact('categories'));
+        $parentCategory = ParentCategory::all()->pluck('name', 'id');
+        //$categories = Categories::all();
+        return view('questions.add', compact('parentCategory'));
     }
     /**
      * Stores new Question into the database.

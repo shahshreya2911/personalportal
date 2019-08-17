@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('store', 'QuestionsController@store')->name('question.store');
 		Route::get('edit/{id}', 'QuestionsController@edit')->name('questions.edit');
 		Route::post('storeedit', 'QuestionsController@storeedit')->name('question.storeedit');
+		Route::post('generate-child-category', 'QuestionsController@generateChildCategory')->name('question.generate-child-category');
 		
 	});
 	Route::group(['prefix' => 'choices'], function () {
