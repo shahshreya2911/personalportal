@@ -13,6 +13,7 @@ Route::get('clear-cache', function() {
 });
 
 
+
 Route::get('logout', [
     'as' => 'auth.logout',
     'uses' => 'Auth\AuthController@getLogout'
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'exam', 'as' => 'exam.'], func
 	#Route::get('main-dashboard', 'ExamController@mainDashboard')->name('questions.main-dashboard');
 	Route::get('dashboard', 'ExamController@dashboard')->name('questions.dashboard');
 	Route::post('store', 'ExamController@store')->name('questions.store');
+    Route::get('certification', 'ExamController@certification');
 });	
 
 Route::group(['middleware' => 'auth'], function () {

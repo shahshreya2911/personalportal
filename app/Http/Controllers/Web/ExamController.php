@@ -53,6 +53,11 @@ class ExamController extends Controller
 		return view('exam.main_dashboard', compact('questions', 'categories'));
 	}
 
+	public function certification()
+    {
+		return view('exam.certification');
+	}
+
     /**
      * Displays dashboard based on user's role.
      *
