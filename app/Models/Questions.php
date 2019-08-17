@@ -14,7 +14,7 @@ class Questions extends Model
   //  use SoftDeletes;
 	
 	protected $table = 'questions';
-	protected $fillable = ['level', 'sentence', 'active'];
+	protected $fillable = ['parent_category_id', 'level', 'sentence', 'active'];
 	
 	public function answer() {
 		return $this->hasMany(QuestionChoices::class, 'fk_question_id', 'id');

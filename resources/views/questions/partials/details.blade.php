@@ -9,7 +9,7 @@
             <div class="form-group required evidence {{ $errors->has('evidence') ? 'has-error' : '' }}">
 				{!! Form::label('parent_category', 'Parent Category', array('class' => 'control-label required')) !!}*
 				<div class="controls">
-					{!! Form::select('parent_category', $parentCategory, null, array('id'=>'parent_category', 'class' => 'form-control', 'required' => 'required', 'placeholder' => "Select Category")) !!}
+					{!! Form::select('parent_category_id', $parentCategory, null, array('id'=>'parent_category', 'class' => 'form-control', 'required' => 'required', 'placeholder' => "Select Category")) !!}
 					<span class="help-block actionStatus">{{ $errors->first('parent_category', ':message') }}</span>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
             <div class="form-group required evidence {{ $errors->has('evidence') ? 'has-error' : '' }}">
 				{!! Form::label('child_category', 'Child Category', array('class' => 'control-label required')) !!}*
 				<div class="controls">
-					{!! Form::select('Child_category', [], null, array('id'=>'child_category', 'class' => 'form-control', 'required' => 'required')) !!}
+					{!! Form::select('level', [], null, array('id'=>'child_category', 'class' => 'form-control', 'required' => 'required')) !!}
 					<span class="help-block actionStatus">{{ $errors->first('child_category', ':message') }}</span>
 				</div>
 			</div>
