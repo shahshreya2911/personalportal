@@ -22,17 +22,17 @@
 						<?php $i = 0;?>	
 						<?php $flag = false;?>	
 						<?php foreach ($categories as $category):?>
-							<div class="col-xl-4 ">
+							<div class="col-xl-4 text-center">
 								<div class="card widget">
 									<div class="card-body">
 										<div class="row">
-											<div class="p-3 text-success flex-1" style="color: #232e6e!important;">
+											<div class="text-success col-xl-12" style="color: #232e6e!important;">
 												<i class="fa fa-book fa-3x"></i>
 											</div>
 
-											<div class="pr-3">
-												<div class="text-right">{{ $category->name}}</div>
-												<div class="text-muted">
+											<div class="col-xl-12">
+												<strong>{{ $category->name}}</strong>
+												<div class="question-name">
 												@if (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '2' && $flag === false)
 													<a href='{{ route('exam.questions')}}'>Start Exam</a>
 													<?php $flag = true;?>
@@ -47,7 +47,7 @@
 													<a href='#'>Finish Above Exam First</a>
 												@endif	
 												</div>
-											</br>  
+											
 										<?php $i++;?>
 										</div>
 									</div>

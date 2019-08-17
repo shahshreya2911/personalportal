@@ -21,4 +21,11 @@
     border-color: #bce8f1;
     padding: 15px;
 }
-    
+
+
+@media (max-width: 1600px) and (min-width: 1200px) {
+  .widget {
+      height: 140px;
+      overflow: hidden;
+  }
+}
