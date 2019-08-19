@@ -27,7 +27,7 @@
 							
 								@include('exam._list')
 							</div>
-							<a href='#' id='next' class="btn btn-primary btn-lg">Next</a>
+							<a href='#next' id='next' class="btn btn-primary btn-lg">Next</a>
 						</form>
 					</div>
 				
@@ -39,17 +39,35 @@
 
 @section('scripts')
 	<script>
+		function getChecklistItems() {
+			var result =
+				$("input:radio:checked").get();
+
+			var columns = $.map(result, function(element) {
+				//alert($(element).val());
+				//return $(element).attr("id");
+				return $(element).val();
+			});
+
+			return columns.join("|");
+		}
 		$('#next').click(function () {
 			category_id = $('#category_id').val();
-			question_id = $('#question_id').val();
-			answer_id = $('input[name=answer]:checked').val();
+			//question_id = $('#question_id').val();
+			
+			
+			@if($categoriesObj->parentCategory->name == \Vanguard\Models\ParentCategory::CATEGORY_2) 
+				answer_id = getChecklistItems();
+			@else
+				answer_id = $('input[name=answer]:checked').val();
+			@endif		
 			
 			var url = "{{ route('exam.questions.store')}}";
 			//popup_loader_pattern_two('loaderid');
 			$.ajax({
 			  url: url,
 			  type: "post",
-			  data: {'category_id': category_id ,'question_id': question_id,'answer_id': answer_id, '_token': "{{ csrf_token() }}"},
+			  data: {'category_id': category_id ,'answer_id': answer_id, '_token': "{{ csrf_token() }}"},
 			  success: function(data){
 				  
 				

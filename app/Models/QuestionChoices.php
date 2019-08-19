@@ -16,4 +16,8 @@ class QuestionChoices extends Model
 	protected $table = 'questionchoices';
 	protected $fillable = ['fk_question_id', 'is_correct', 'answer','active'];
 	
+	public function question()
+    {
+        return $this->belongsTo(Questions::class, 'fk_question_id', 'id');
+    }
 }

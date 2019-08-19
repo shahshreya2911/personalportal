@@ -82,13 +82,24 @@ class ExamController extends Controller
 			->where('category_id', $userQuestionAnwser->category_id)
 			->pluck('question_id', 'question_id');
 			
-			$questions = Questions::where('level', $userQuestionAnwser->category_id)
-			->whereNotIn('id', $questionIds)
-			->orderBy('id', 'ASC')->limit(1)->first();
-			
 			$categoriesObj = Categories::find($userQuestionAnwser->category_id);
 			
-			if (empty($questions)) {
+			$dataRecord = false; 
+			if ($categoriesObj->parentCategory->name == ParentCategory::CATEGORY_2) {
+				$questions = Questions::where('level', $userQuestionAnwser->category_id)
+				->whereNotIn('id', $questionIds)
+				->orderBy('id', 'ASC')->get();	
+				
+				$dataRecord = (count($questions) <= 0) ? true : false;	
+			} else {
+				$questions = Questions::where('level', $userQuestionAnwser->category_id)
+				->whereNotIn('id', $questionIds)
+				->orderBy('id', 'ASC')->limit(1)->first();	
+				
+				$dataRecord = empty($questions) ? true : false;	
+			}
+
+			if ($dataRecord) {
 				$categories = Categories::orderBy('id', 'ASC')->pluck('id', 'id');
 				
 				$categoryids = UserQuestionAnwser::where('user_id', Auth::user()->id)
@@ -108,11 +119,21 @@ class ExamController extends Controller
 				//dump($newCategoryArray);exit;
 				if (isset($newCategoryArray[0])) {
 					
-					$questions = Questions::where('level', $newCategoryArray[0])
-					->orderBy('id', 'ASC')
-					->limit(1)->first();	
-					
 					$categoriesObj = Categories::find($newCategoryArray[0]);
+					
+					if ($categoriesObj->parentCategory->name == ParentCategory::CATEGORY_2) {
+						
+						$questions = Questions::where('level', $newCategoryArray[0])
+						->orderBy('id', 'ASC')->get();
+						
+						//return view('exam._list_2', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+						
+					} else {
+						$questions = Questions::where('level', $newCategoryArray[0])
+						->orderBy('id', 'ASC')
+						->limit(1)->first();	
+					}
+					
 				} else {
 					return redirect()->route('exam.questions.dashboard')
 					->withSuccess('Please select next exam or your exam level finsihed');
@@ -132,39 +153,45 @@ class ExamController extends Controller
         return view('exam.index', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
     }
 	
-	public function store(CreateAnswerRequest $request)
-    {
-		$questionChoices = QuestionChoices::find($request->get('answer_id'));
+	public function saveUserQuestionAnwser($categoryId, $answerId) {
 		
-		$userQuestionAnwser = UserQuestionAnwser::where('category_id', $request->get('category_id'))
-		->where('category_id', $request->get('category_id'))
-		->where('answer_id', $request->get('answer_id'))
+		$userQuestionAnwser = UserQuestionAnwser::where('category_id', $categoryId)
+		//->where('category_id', $categoryId)
+		->where('answer_id', $answerId)
 		->where('user_id', Auth::user()->id)->count();
 		
-		if ($userQuestionAnwser == 0) {
-			
-			$categoriesObj = Categories::find($request->get('category_id'));
-			
+		if ($userQuestionAnwser == 0) {		
+			$categoriesObj = Categories::find($categoryId);
+			$questionChoices = QuestionChoices::find($answerId);
 			
 			$userQuestionAnwser = new UserQuestionAnwser();
 			$userQuestionAnwser->user_id = Auth::user()->id;
-			$userQuestionAnwser->category_id = $request->get('category_id');
+			$userQuestionAnwser->category_id = $categoryId;
+			//$userQuestionAnwser->category_id = $request->get('category_id');
 			$userQuestionAnwser->parent_category_id = $categoriesObj->parentCategory->id;
-			$userQuestionAnwser->question_id = $request->get('question_id');
-			
-			$userQuestionAnwser->answer_id = $request->get('answer_id');
-			
+			$userQuestionAnwser->question_id = $questionChoices->fk_question_id;
+			$userQuestionAnwser->answer_id = $questionChoices->id;
 			$userQuestionAnwser->status = $questionChoices->is_correct;
-			$userQuestionAnwser->save();	
+			$userQuestionAnwser->save();
 		}
-
+	}
+	
+	public function store(CreateAnswerRequest $request)
+    {
+		$categoriesObj = Categories::find($request->get('category_id'));
 		
+		if ($categoriesObj->parentCategory->name == ParentCategory::CATEGORY_2) { 
 		
-		//$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->first();
-		
-		//$questions = Questions::limit(1)->first();
-		
-		//dump($questions->answer);exit;
+			$answerIds = explode('|', $request->get('answer_id'));
+			
+			foreach ($answerIds as $answerId) {
+				$this->saveUserQuestionAnwser($request->get('category_id'), $answerId);
+			}
+		} else {
+			
+			$this->saveUserQuestionAnwser($request->get('category_id'), $request->get('answer_id'));
+				
+		}
 		
 		$userQuestionAnwser = UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->groupBy('category_id')->first();
 			
@@ -173,12 +200,24 @@ class ExamController extends Controller
 		->where('category_id', $userQuestionAnwser->category_id)
 		->pluck('question_id', 'question_id');
 		
-		$questions = Questions::where('level', $userQuestionAnwser->category_id)
-		->whereNotIn('id', $questionIds)->limit(1)->first();
-		
 		$categoriesObj = Categories::find($userQuestionAnwser->category_id);
 		
-		return view('exam._list', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+		if ($categoriesObj->parentCategory->name == ParentCategory::CATEGORY_2) {
+			
+			$questions = Questions::where('level', $userQuestionAnwser->category_id)
+			->whereNotIn('id', $questionIds)
+			->orderBy('id', 'ASC')->get();
+			
+			return view('exam._list_2', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+			
+		} else {
+			$questions = Questions::where('level', $userQuestionAnwser->category_id)
+			->whereNotIn('id', $questionIds)->limit(1)->first();	
+			
+			return view('exam._list', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+		}
+		
+		
     }
 
     /**
