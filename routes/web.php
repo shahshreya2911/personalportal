@@ -73,6 +73,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'exam', 'as' => 'exam.'], func
 	Route::get('dashboard', 'ExamController@dashboard')->name('questions.dashboard');
 	Route::post('store', 'ExamController@store')->name('questions.store');
     Route::get('certification', 'ExamController@certification');
+	Route::get('story', 'ExamController@story')->name('questions.story');
 });	
 
 Route::group(['middleware' => 'auth'], function () {

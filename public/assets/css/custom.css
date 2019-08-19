@@ -23,6 +23,12 @@
 }
 
 
+.exam_button a {
+    color: #fff;
+    background-color: #232e6e;
+    border-color: #232e6e;
+}
+
 @media (max-width: 1600px) and (min-width: 1200px) {
   .widget {
       height: 140px;

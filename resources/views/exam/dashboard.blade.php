@@ -41,8 +41,6 @@
 								<?php $flag = true;?>
 							@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '4' && $flag === false)	
 								<a href='#'>Exam Finished</a>
-							 Result: 10/{{ \Vanguard\Helpers\Helper::correctAnswer($category->id, $i) }}
-
 							@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '5' || $flag === true)	
 								<a href='#'>Finish Above Exam First</a>
 							@endif	

@@ -10,6 +10,19 @@
 @stop
 
 @section('content')
+<style>
+.exam_button {
+    color: #fff;
+    background-color: #232e6e;
+    border-color: #232e6e;
+}
+
+.exam_button:hover {
+    color: #fff;
+    background-color: #232e6e;
+    border-color: #232e6e;
+}
+</style>
 @include('partials.messages')
 <div class="question-list">
 
@@ -27,7 +40,7 @@
 							
 								@include('exam._list')
 							</div>
-							<a href='#next' id='next' class="btn btn-primary btn-lg">Next</a>
+							<a href='#next' id='next' class="btn exam_button" >Next</a>
 						</form>
 					</div>
 				

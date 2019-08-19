@@ -41,7 +41,6 @@
 													<?php $flag = true;?>
 												@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '4' && $flag === false)	
 													<a href='#'>Exam Finished</a>
-												 Result: 10/{{ \Vanguard\Helpers\Helper::correctAnswer($category->id, $i) }}
 
 												@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '5' || $flag === true)	
 													<a href='#'>Finish Above Exam First</a>
@@ -61,61 +60,59 @@
 			</div>
 		</div>
 	</div>
+	<?php if (\Vanguard\Models\Questions::count() == \Vanguard\Models\UserQuestionAnwser::count()):?>
+		<div class="row">
+			<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<h3 class="card-title">Results</h3>
+				    <div class="table-responsive" id="users-table-wrapper">
+						<table class="table table-borderless table-striped">
+							<thead>
+							<tr>
+								<th class="min-width-80">Student</th>
+								<th class="min-width-150">User Id</th>
+								<th class="min-width-100">Basic Vocabulary</th>
+								<th class="min-width-80">Literacy Comphrehension</th>
+								<th class="min-width-80">Adult Numeracy</th>
+								<th class="min-width-150">Completation Date</th>
+							</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</td>
+									<td>{{Auth::user()->id}}</td>
+									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(1)}}</td>
+									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(2)}}</td>
+									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(3)}}</td>
+									<td>19-08-2019</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<h4 class="card-title">Activity Total: {{\Vanguard\Helpers\Helper::userAllScore()}}</h3>
+				</div>
+			</div>
+		</div>
+		</div>
+	<?php endif;?>	
+	<?php /*
 	<div class="row">
 		<div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Result</h3>
-               <div class="table-responsive" id="users-table-wrapper">
-            <table class="table table-borderless table-striped">
-                <thead>
-                <tr>
-                    <th class="min-width-80">Student</th>
-                    <th class="min-width-150">User Id</th>
-                    <th class="min-width-100">Basic Vocabulary</th>
-                    <th class="min-width-80">Literacy Reading Comprehension</th>
-                    <th class="min-width-80">Adult Nummeracy</th>
-                    <th class="text-center min-width-150">Completion Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                	<tr>
-	                	<td> K seloma</td>
-	                	<td>222333</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>4 April 2019</td>
-	                </tr>
-	                <tr>
-	                	<td> KJ seloma</td>
-	                	<td>222333</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>4 April 2019</td>
-	                </tr>
-	                <tr>
-	                	<td> M seloma</td>
-	                	<td>222333</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>50</td>
-	                	<td>4 April 2019</td>
-	                </tr>
-                </tbody>
-                <tfoot>
-			    <tr>
-			      <th colspan="5" align="right">Total Activities:</th>
-			      <th  align="right">150</th>
-			    </tr>
-			  </tfoot>
-            </table>
+        	<div class="card">
+        		 <div class="card-body">
+        		 	<h4 class="alert alert-success">Thank you for participating on the plas program. You have successfully completed.</h4>
+        		 	<div class="certificate-pdf col-md-5">
+        		 		<h5>Download your certificate below</h5>
+        		 		<object data="{{url('upload/users/certificate/PALS_certificate.pdf')}}" type="application/pdf" width="100%" height="100%" style="height: 250px">
+        		 			<p>Alternative text - include a link <a href="{{url('upload/users/certificate/PALS_certificate.pdf')}}">to the PDF!</a></p>
+						</object><br/>
+						<h5><a class="text-danger" href="{{url('upload/users/certificate/PALS_certificate.pdf')}}">Download Certificate</a></h5>
+        		 	</div>
+        		 </div>
+        	</div>
         </div>
-            </div>
-        </div>
-    </div>
-	</div>
+    </div>*/?>
 </div>
 @stop
 

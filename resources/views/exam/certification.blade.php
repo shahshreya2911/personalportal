@@ -28,16 +28,28 @@
                     <th class="min-width-150">Status</th>
                 </tr>
                 </thead>
-                <tbody>
-                	<tr>
-	                	<td> K seloma</td>
-	                	<td>222333</td>
-	                	<td>150</td>
-	                	<td>60%</td>
-	                	<td>C</td>
-	                	<td>Completed</td>
-	                </tr>
-                </tbody>
+               <tbody>
+					<tr>
+						<td> {{Auth::user()->first_name}} {{Auth::user()->last_name}}</td>
+						<td>{{Auth::user()->id}}</td>
+						<td>{{\Vanguard\Helpers\Helper::userAllScore()}}</td>
+						<td><?php echo number_format(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore(), 2); ?>%</td>
+						<td>
+							@if(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() < 49)
+							E
+							@elseif(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() > 50 && \Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() <60)
+							D
+							@elseif(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() > 60 && \Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() <79)	
+							C
+							@elseif(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() > 80 && \Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() <89)	
+							B
+							@elseif(\Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() > 90 && \Vanguard\Helpers\Helper::allQuestions()/ \Vanguard\Helpers\Helper::userAllScore() <100)	
+							A
+							@endif
+						</td>
+						<td>Completed</td>
+					</tr>
+				</tbody>
             </table>
         </div>
             </div>
@@ -51,10 +63,10 @@
         		 	<h4 class="alert alert-success">Thank you for participating on the plas program. You have successfully completed.</h4>
         		 	<div class="certificate-pdf col-md-5">
         		 		<h5>Download your certificate below</h5>
-        		 		<object data="{{url('upload/users/certificate/student.pdf')}}" type="application/pdf" width="100%" height="100%" style="height: 250px">
-        		 			<p>Alternative text - include a link <a href="{{url('upload/users/certificate/student.pdf')}}">to the PDF!</a></p>
+        		 		<object data="{{url('upload/users/certificate/PALS_certificate.pdf')}}" type="application/pdf" width="100%" height="100%" style="height: 250px">
+        		 			<p>Alternative text - include a link <a href="{{url('upload/users/certificate/PALS_certificate.pdf')}}">to the PDF!</a></p>
 						</object><br/>
-						<h5><a class="text-danger" href="{{url('upload/users/certificate/student.pdf')}}">Download Certificate</a></h5>
+						<h5><a class="text-danger" href="{{url('upload/users/certificate/PALS_certificate.pdf')}}">Download Certificate</a></h5>
         		 	</div>
         		 </div>
         	</div>
