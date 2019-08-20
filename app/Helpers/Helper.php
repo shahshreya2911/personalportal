@@ -60,7 +60,27 @@ class Helper
 			->count();
 		
 	}
+	public static function alluserExamDate($categoryId,$userid) {
+		
+			
+			$query = UserQuestionAnwser::where('parent_category_id', $categoryId)
+			
+			->where('user_id', $userid)
+			->where('status', '1')
+			->orderBy('id', 'DESC')
+			->pluck('updated_at'); 
+			$updated_at = $query->first();
+			return $updated_at;
+		
+	}
 	
+	public static function alluserCategoryScore($categoryId,$userid) {
+			return UserQuestionAnwser::where('parent_category_id', $categoryId)
+			->where('user_id', $userid)
+			->where('status', '1')
+			->count();
+		
+	}
 	public static function allQuestions() {
 		
 		$parentCategory = ParentCategory::get();

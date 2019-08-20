@@ -95,7 +95,11 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('storeedit', 'QuestionsController@storeeditChoice')->name('choices.storeedit');
 
 	});
-	
+	Route::group(['prefix' => 'results'], function () {
+        Route::get('/', 'ResultsController@index')->name('results');
+        
+
+    });
 	
 
     /**
