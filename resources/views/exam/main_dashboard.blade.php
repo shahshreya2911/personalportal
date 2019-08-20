@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+<link rel="stylesheet" href="<?php echo asset('assets/sweetalert/css/sweetalert.css')?>" type="text/css"> 
 <div class="question-list">
 
 
@@ -43,7 +44,7 @@
 													<a href='#'>Exam Finished</a>
 
 												@elseif (\Vanguard\Helpers\Helper::examLevel($category->id, $i) == '5' || $flag === true)	
-													<a href='#'>Finish Above Exam First</a>
+													<a href='#' class='sweet_alert_c'>Finish Above Exam First</a>
 												@endif	
 												</div>
 											
@@ -75,7 +76,7 @@
 								<th class="min-width-100">Basic Vocabulary</th>
 								<th class="min-width-80">Literacy Comphrehension</th>
 								<th class="min-width-80">Adult Numeracy</th>
-								<th class="min-width-150">Completation Date</th>
+								<th class="min-width-150">Completion Date</th>
 							</tr>
 							</thead>
 							<tbody>
@@ -85,7 +86,16 @@
 									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(1)}}</td>
 									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(2)}}</td>
 									<td>{{\Vanguard\Helpers\Helper::userCategoryScore(3)}}</td>
-									<td>19-08-2019</td>
+									<td>
+									<?php if (\Vanguard\Models\Questions::count() == \Vanguard\Models\UserQuestionAnwser::count()):
+									
+									$userQuestionAnwser = \Vanguard\Models\UserQuestionAnwser::where('user_id', Auth::user()->id)->latest('created_at')->first();
+									
+									//x
+									echo date('Y-m-d',strtotime($userQuestionAnwser->created_at));
+									?>
+									<?php endif;?>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -116,8 +126,21 @@
 </div>
 @stop
 
+<script src="{{ asset('assets/sweetalert/js/sweetalert.min.js') }}"></script>
+
 @section('scripts')
 	<script>
+	
+		$('.sweet_alert_c').click(function () {
+			swal({
+			  title: "First finish current exam",
+			  text: "First finish current exam than after start next exam",
+			  type: "warning",
+			  showCancelButton: true,
+			  confirmButtonClass: "btn-danger"
+			});
+		});	
+	
 		$('#next').click(function () {
 			category_id = $('#category_id').val();
 			question_id = $('#question_id').val();
