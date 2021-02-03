@@ -10,7 +10,7 @@
 
     <div class="col-md-8 col-lg-6 col-xl-5 mx-auto my-10p">
         <div class="text-center">
-            <img src="{{ url('assets/img/vanguard-logo.png') }}" alt="{{ settings('app_name') }}" height="50">
+           <!--  <img src="{{ url('assets/img/vanguard-logo.png') }}" alt="{{ settings('app_name') }}" height="50"> -->
         </div>
 
         @include('partials/messages')
@@ -26,6 +26,7 @@
 
                     <form role="form" action="<?= url('register') ?>" method="post" id="registration-form" autocomplete="off" class="mt-3">
                         <input type="hidden" value="<?= csrf_token() ?>" name="_token">
+                      
                         <div class="form-group">
                             <input type="email" name="email" id="email" class="form-control" placeholder="@lang('app.email')" value="{{ old('email') }}">
                         </div>
@@ -35,6 +36,13 @@
                         <div class="form-group">
                             <input type="password" name="password" id="password" class="form-control" placeholder="@lang('app.password')">
                         </div>
+                        @if(!empty($_GET['type']))
+                            @if($_GET['type'] == "freeebook_access")
+                            <input type="hidden" name="freeebook_access" value="1">
+                            @elseif($_GET['type'] == "blog_access")
+                            <input type="hidden" name="blog_access" value="1">
+                            @endif
+                        @endif
                          <div class="form-group">
                             <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="@lang('app.confirm_password')">
                         </div>

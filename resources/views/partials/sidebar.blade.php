@@ -29,22 +29,26 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
             @if (Auth::user()->hasRole('Admin'))
-			<li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link {{ Request::is('/') ? 'active' : ''  }}" href="{{ route('dashboard') }}">
                     <i class="fas fa-home"></i>
                     <span>@lang('app.dashboard')</span>
                 </a>
             </li>
-			@else
-			<li class="nav-item">
-                <a class="nav-link {{ Request::is('exam') ? 'active' : ''  }}" href="{{ route('exam.questions.dashboard') }}">
+            
+            @endif
+
+            @if (Auth::user()->hasRole('User'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('/') ? 'active' : ''  }}" href="{{ route('dashboard') }}">
                     <i class="fas fa-home"></i>
-                    <span>@lang('app.dashboard')</span>
+                    <span>User Dashboard</span>
                 </a>
             </li>
-            @endif
-			
-			@permission('users.manage')
+          
+            @endif            
+           
+            @permission('users.manage')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('user*') ? 'active' : ''  }}" href="{{ route('user.list') }}">
                     <i class="fas fa-users"></i>
@@ -52,7 +56,58 @@
                 </a>
             </li>
             @endpermission
-
+            
+       
+            
+           
+         <!--   @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('zone*') ? 'active' : ''  }}" href="{{ route('zone') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Zones</span>
+                </a>
+            </li>
+            @endif
+          @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('product*') ? 'active' : ''  }}" href="{{ route('product') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            @endif
+            @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('job*') ? 'active' : ''  }}" href="{{ route('job') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Jobs</span>
+                </a>
+            </li>
+            @endif
+            @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('stockin*') ? 'active' : ''  }}" href="{{ route('stockin') }}">
+                    <i class="fas fa-home"></i>
+                    <span>StockIn</span>
+                </a>
+            </li>
+            @endif
+            @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('stockout*') ? 'active' : ''  }}" href="{{ route('stockout') }}">
+                    <i class="fas fa-home"></i>
+                    <span>StockOut</span>
+                </a>
+            </li>
+            @endif
+             @if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin'))
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('report*') ? 'active' : ''  }}" href="{{ route('report') }}">
+                    <i class="fas fa-home"></i>
+                    <span>Reports</span>
+                </a>
+            </li>
+            @endif 
             @permission('users.activity')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('activity*') ? 'active' : ''  }}" href="{{ route('activity.index') }}">
@@ -60,24 +115,24 @@
                     <span>@lang('app.activity_log')</span>
                 </a>
             </li>
-            @endpermission
-			
-			@if (Auth::user()->hasRole('Admin'))
+            @endpermission-->
+           
+            <!-- @if (Auth::user()->hasRole('Admin'))
              <li class="nav-item">
                 <a class="nav-link {{ Request::is('questions*') ? 'active' : ''  }}" href="{{ route('questions') }}">
                     <i class="fas fa-users"></i>
                     <span>Questions</span>
                 </a>
             </li>
-			@endif
+            @endif -->
            
-			<!--  <li class="nav-item">
+            <!--  <li class="nav-item">
                 <a class="nav-link {{ Request::is('choices*') ? 'active' : ''  }}" href="{{ route('choices') }}">
                     <i class="fas fa-users"></i>
                     <span>Choices</span>
                 </a>
             </li> -->
-            @permission(['roles.manage', 'permissions.manage'])
+           <!--  @permission(['roles.manage', 'permissions.manage'])
             <li class="nav-item">
                 <a href="#roles-dropdown"
                    class="nav-link"
@@ -101,9 +156,9 @@
                     @endpermission
                 </ul>
             </li>
-            @endpermission
+            @endpermission -->
 
-            @permission(['settings.general', 'settings.auth', 'settings.notifications'], false)
+           <!--  @permission(['settings.general', 'settings.auth', 'settings.notifications'], false)
             <li class="nav-item">
                 <a href="#settings-dropdown"
                    class="nav-link"
@@ -139,7 +194,7 @@
                     @endpermission
                 </ul>
             </li>
-            @endpermission
+            @endpermission -->
         </ul>
     </div>
 </nav>

@@ -47,10 +47,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        if ($this->app['config']->get('auth.expose_api')) {
-            $this->mapApiRoutes();
-        }
-
+       
+        $this->mapApiRoutes();
         $this->mapWebRoutes();
     }
 
@@ -84,7 +82,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace' => $this->apiNamespace,
             'prefix' => 'api',
-        ], function () {
+        ], function ($router) {
             require base_path('routes/api.php');
         });
     }

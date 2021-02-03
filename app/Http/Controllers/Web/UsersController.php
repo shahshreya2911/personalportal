@@ -1,7 +1,7 @@
 <?php
 
 namespace Vanguard\Http\Controllers\Web;
-
+use DB;
 use Illuminate\Support\Arr;
 use Vanguard\Events\User\Banned;
 use Vanguard\Events\User\Deleted;
@@ -51,12 +51,13 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
-    {
-        $users = $this->users->paginate(
-            $perPage = 20,
-            Input::get('search'),
-            Input::get('status')
-        );
+    {        
+                                               
+        $users = DB::table('users')
+        ->select('users.*','roles.name')
+        ->where('users.id', '!=', auth()->id())
+        ->join('roles', 'users.role_id', '=', 'roles.id')->paginate(5);
+    
 
         $statuses = ['' => trans('app.all')] + UserStatus::lists();
 
@@ -141,10 +142,10 @@ class UsersController extends Controller
      * @param RoleRepository $roleRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user, CountryRepository $countryRepository, RoleRepository $roleRepository)
+    public function edit(User $user, RoleRepository $roleRepository)
     {
         $edit = true;
-        $countries = $this->parseCountries($countryRepository);
+    
         $roles = $roleRepository->lists();
         $statuses = UserStatus::lists();
         $socialLogins = $this->users->getUserSocialLogins($user->id);
@@ -163,12 +164,11 @@ class UsersController extends Controller
      * @return mixed
      */
     public function updateDetails(User $user, UpdateDetailsRequest $request)
-    {
+    { 
+        
         $data = $request->all();
 
-        if (! Arr::get($data, 'country_id')) {
-            $data['country_id'] = null;
-        }
+        
 
         $this->users->update($user->id, $data);
         $this->users->setRole($user->id, $request->role_id);

@@ -26,7 +26,7 @@
         <div class="card">
             <div class="card-body">
                 <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <li class="nav-item">
+                   <!--  <li class="nav-item">
                         <a class="nav-link active"
                            id="details-tab"
                            data-toggle="tab"
@@ -36,7 +36,7 @@
                            aria-selected="true">
                             @lang('app.user_details')
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                         <a class="nav-link"
                            id="authentication-tab"
@@ -62,15 +62,15 @@
                         </li>
                     @endif
                 </ul>
-
+ 
                 <div class="tab-content mt-4" id="nav-tabContent">
-                    <div class="tab-pane fade show active px-2" id="details" role="tabpanel" aria-labelledby="nav-home-tab">
+                   <!--  <div class="tab-pane fade show active px-2" id="details" role="tabpanel" aria-labelledby="nav-home-tab">
                         {!! Form::open(['route' => ['user.update.details', $user->id], 'method' => 'PUT', 'id' => 'details-form']) !!}
                             @include('user.partials.details', ['profile' => false])
                         {!! Form::close() !!}
-                    </div>
+                    </div> -->
 
-                    <div class="tab-pane fade px-2" id="login-details" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="tab-pane fade show active px-2" id="login-details" role="tabpanel" aria-labelledby="nav-profile-tab">
                         {!! Form::open(['route' => ['user.update.login-details', $user->id], 'method' => 'PUT', 'id' => 'login-details-form']) !!}
                             @include('user.partials.auth')
                         {!! Form::close() !!}
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    <div class="col-4">
+   <!--  <div class="col-4">
         <div class="card">
             <div class="card-body">
                 {!! Form::open(['route' => ['user.update.avatar', $user->id], 'files' => true, 'id' => 'avatar-form']) !!}
@@ -100,7 +100,7 @@
                 {!! Form::close() !!}
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 @stop

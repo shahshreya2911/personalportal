@@ -7,6 +7,12 @@ return [
     'copyright' => 'Copyright',
     'users' => 'Users',
     'que' => 'Question',
+    'product' => 'Product',
+    'zone' => 'Zones',
+    'job' => 'Job',
+    'stockin' => 'Stock In',
+    'stockout' => 'Stock Out',
+    'report' => 'Report',
     'users_sm' => 'users',
     'roles_and_permissions' => 'Roles & Permissions',
     'roles' => 'Roles',
@@ -84,7 +90,30 @@ return [
     'forgot_your_password' => 'Forgot Your Password?',
     'please_provide_your_email_below' => 'Please provide your email below and we will send you a password reset link.',
     'pick_new_password_below' => 'Please provide your email and pick a new password below.',
-
+        //job
+     'job_created' => 'Job created successfully.',
+    'job_updated' => 'Job updated successfully.',
+    'job_deleted' => 'Job deleted successfully.',
+  
+    'delete_job' => 'Delete Job',
+    'edit_job' => 'Edit Job',
+    'are_you_sure_delete_job' => 'Are you sure that you want to delete this Job?',
+    //stock in
+    'stockin_created' => 'Stock In created successfully.',
+    'stockin_updated' => 'Stock In updated successfully.',
+    'stockin_deleted' => 'Stock In deleted successfully.',
+  
+    'delete_stockin' => 'Delete Stock In',
+    'edit_stockin' => 'Edit Stock In',
+    'are_you_sure_delete_stockin' => 'Are you sure that you want to delete this Stock In?',
+    //stock out
+    'stockout_created' => 'Stock Out created successfully.',
+    'stockout_updated' => 'Stock Out updated successfully.',
+    'stockout_deleted' => 'Stock Out deleted successfully.',
+  
+    'delete_stockout' => 'Delete Stock Out',
+    'edit_stockout' => 'Edit Stock Out',
+    'are_you_sure_delete_stockout' => 'Are you sure that you want to delete this Stock Out?',
     // 2FA
     'two_factor_authentication' => 'Two-Factor Authentication',
     'two_factor_phone_verification' => 'Two-Factor Phone Verification',
@@ -214,7 +243,10 @@ return [
     'delete_ans' => 'Delete Answer',
     'are_you_sure_delete_user' => 'Are you sure that you want to delete this user?',
     'yes_delete_him' => 'Yes, delete him!',
-
+    'delete_zone' => 'Delete Zone',
+    'edit_zone' => 'Edit Zone',
+    'are_you_sure_delete_zone' => 'Are you sure that you want to delete this zone?',
+    
     'edit_profile_details' => 'edit profile details',
     'active_sessions_sm' => 'active sessions',
     'sessions' => 'Sessions',
@@ -229,7 +261,15 @@ return [
     'last_logged_in' => 'Last Logged In',
     'complete_activity_log' => 'Complete Activity Log',
     'date' => 'Date',
-
+     'pro_created' => 'Product created successfully.',
+    'pro_updated' => 'Product updated successfully.',
+    'pro_deleted' => 'Product deleted successfully.',
+     'attr_deleted' => 'Attribute deleted successfully.',
+    'delete_pro' => 'Delete Product',
+    'delete_attr' => 'Delete Attribute',
+    'edit_pro' => 'Edit Product',
+    'are_you_sure_delete_pro' => 'Are you sure that you want to delete this Product?',
+    'are_you_sure_delete_attr' => 'Are you sure that you want to delete this Attribute?',
     'login_details' => 'Login Details',
     'optional' => 'optional',
     'new' => 'New',
@@ -298,6 +338,9 @@ return [
     'user_updated' => 'User updated successfully.',
     'que_created' => 'Question created successfully.',
     'que_updated' => 'Question updated successfully.',
+    'zone_created' => 'Zone created successfully.',
+    'zone_updated' => 'Zone updated successfully.',
+    'zone_deleted' => 'Zone deleted successfully.',
     'ans_created' => 'Answer created successfully.',
     'ans_updated' => 'Answer updated successfully.',
     'you_cannot_delete_yourself' => 'You cannot delete yourself.',

@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 use Vanguard\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
-
+use Mail;
 class AuthController extends Controller
 {
     /**
@@ -329,20 +329,30 @@ class AuthController extends Controller
     {
         // Determine user status. User's status will be set to UNCONFIRMED
         // if he has to confirm his email or to ACTIVE if email confirmation is not required
-        $status = settings('reg_email_confirmation')
-            ? UserStatus::UNCONFIRMED
-            : UserStatus::ACTIVE;
+       
+        //$status = settings('reg_email_confirmation')
+           // ? UserStatus::UNCONFIRMED
+          //  : UserStatus::ACTIVE;
 
         $role = $roles->findByName('User');
 
         // Add the user to database
-        $user = $this->users->create(array_merge(
-            $request->only('email', 'username', 'password'),
-            ['status' => $status, 'role_id' => $role->id]
-        ));
-
-        event(new Registered($user));
-
+        $data = $request->all();
+        $data['status'] = "Active";
+        $data['role_id'] = $role->id;
+        $user = $this->users->create($data);
+       // event(new Registered($user));
+        $to_name = $user->first_name;
+        $to_email = $user->email;
+        $to_subject = 'Thank You For Register';
+        $to_description = "Glad You are Connected with us";
+        $data = array( 'name'=> $to_name ,
+                                'email' =>$to_email,
+                                'subject'=>$to_subject,
+                                'description' => $to_description);
+       /* Mail::send('emails.contact.contact', $data, function($message) use ($to_name, $to_email,$to_subject,$to_description) {
+            $message->to($to_email, $to_name,$to_description) ->subject($to_subject);
+        });*/
         $message = settings('reg_email_confirmation')
             ? trans('app.account_create_confirm_email')
             : trans('app.account_created_login');

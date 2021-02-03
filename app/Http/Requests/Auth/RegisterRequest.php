@@ -14,7 +14,7 @@ class RegisterRequest extends Request
     public function rules()
     {
         $rules = [
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|unique:users,email',
             'username' => 'required|unique:users,username',
             'password' => 'required|confirmed|min:8',
         ];

@@ -15,16 +15,16 @@ class CreateUserRequest extends Request
     public function rules()
     {
         $rules = [
-            'email' => 'required|email|unique:users,email',
+           
             'username' => 'nullable|unique:users,username',
             'password' => 'required|min:6|confirmed',
-            'birthday' => 'nullable|date',
+            
             'role_id' => 'required|exists:roles,id',
         ];
 
-        if ($this->get('country_id')) {
+       /* if ($this->get('country_id')) {
             $rules += ['country_id' => 'exists:countries,id'];
-        }
+        }*/
 
         return $rules;
     }

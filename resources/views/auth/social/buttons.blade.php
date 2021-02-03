@@ -1,4 +1,4 @@
-@if ($socialProviders)
+<!-- @if ($socialProviders)
     <?php $colSize = 12 / count($socialProviders); ?>
 
     <div class="row pb-3 pt-2">
@@ -27,4 +27,4 @@
         @endif
     </div>
 
-@endif
+@endif -->

@@ -183,7 +183,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
-
+        Spatie\Analytics\AnalyticsServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -194,6 +195,10 @@ return [
         Vanguard\Providers\EventServiceProvider::class,
         Vanguard\Providers\RouteServiceProvider::class,
         Vanguard\Services\Auth\TwoFactor\AuthyServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        /// yajra Datatables 
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -256,6 +261,10 @@ return [
         'Authy' => Vanguard\Services\Auth\TwoFactor\Facade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 

@@ -1,0 +1,2 @@
+[28-Aug-2019 03:09:41 CST6CDT] PHP Fatal error:  require(): Failed opening required '/home/dawoodk6/public_html/inventory/../vendor/autoload.php' (include_path='.:/usr/local/php71/pear') in /home/dawoodk6/public_html/inventory/index.php on line 23
+[28-Aug-2019 03:09:48 CST6CDT] PHP Fatal error:  require(): Failed opening required '/home/dawoodk6/public_html/inventory/../vendor/autoload.php' (include_path='.:/usr/local/php71/pear') in /home/dawoodk6/public_html/inventory/index.php on line 23

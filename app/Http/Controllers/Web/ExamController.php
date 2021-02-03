@@ -50,12 +50,12 @@ class ExamController extends Controller
     {
 		$categories = ParentCategory::orderBy('id', 'ASC')->get();
 		
-		return view('exam.main_dashboard', compact('questions', 'categories'));
+		return view('users.main_dashboard', compact( 'categories'));
 	}
 
 	public function certification()
     {
-		return view('exam.certification');
+		return view('users.certification');
 	}
 
     /**
@@ -115,12 +115,12 @@ class ExamController extends Controller
 						->limit(1)->first();
 					
 				} else {
-					return redirect()->route('exam.questions.dashboard')
+					return redirect()->route('users.questions.dashboard')
 					->withSuccess('Please select next exam or your exam level finsihed');
 				}
 			}
 		}
-		return view('exam.index', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+		return view('users.index', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
     }
 	
 	public function saveUserQuestionAnwser($categoryId, $answerId) {
@@ -196,7 +196,7 @@ class ExamController extends Controller
 			view()->share('userQuestionAnwser', $userQuestionAnwserCount);
 		}
 			
-		return view('exam._list', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
+		return view('users._list', compact('questions', 'userQuestionAnwser', 'categoriesObj'));
 	}
 	
 	public function story()
@@ -219,7 +219,7 @@ class ExamController extends Controller
 		
 		$categoriesObj = Categories::find($newCategoryArray[0]);
 		
-		return view('exam.category_story', compact('categoriesObj'));
+		return view('users.category_story', compact('categoriesObj'));
 	}
 
     /**

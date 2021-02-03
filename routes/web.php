@@ -1,9 +1,10 @@
 <?php
 
+use Spatie\Analytics\Period;
 /**
  * Authentication
  */
-
+ 
 Route::get('login', 'Auth\AuthController@getLogin');
 Route::post('login', 'Auth\AuthController@postLogin');
 
@@ -67,7 +68,33 @@ Route::get('auth/twitter/email', 'Auth\SocialAuthController@getTwitterEmail');
 Route::post('auth/twitter/email', 'Auth\SocialAuthController@postTwitterEmail');
 
 
-Route::group(['middleware' => 'auth', 'prefix' => 'exam', 'as' => 'exam.'], function () {
+    Route::group(['prefix' => 'category'], function () {
+       Route::get('/', 'CategoryController@index')->name('category');
+        Route::get('create', 'CategoryController@create')->name('category.create');
+        Route::post('store', 'CategoryController@store')->name('category.store');
+        Route::get('edit/{id}', 'CategoryController@edit')->name('category.edit');
+        Route::post('storeedit', 'CategoryController@storeedit')->name('category.storeedit');
+        Route::delete('delete/{subcatid}', [
+        'as' => 'category.delete',
+        'uses' => 'CategoryController@delete'
+        ]);
+
+    });
+
+    Route::group(['prefix' => 'player'], function () {
+       Route::get('/', 'PlayerController@index')->name('player');
+        Route::get('create', 'PlayerController@create')->name('player.create');
+        Route::post('store', 'PlayerController@store')->name('player.store');
+        Route::get('edit/{id}', 'PlayerController@edit')->name('player.edit');
+        Route::post('storeedit', 'PlayerController@storeedit')->name('player.storeedit');
+        Route::delete('delete/{subcatid}', [
+        'as' => 'player.delete',
+        'uses' => 'PlayerController@delete'
+        ]);
+        Route::post('get-weight-cat', 'PlayerController@getWeightCat')->name('player.get-weight-cat');
+    });
+
+Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.'], function () {
 	Route::get('/', 'ExamController@index')->name('questions');
 	#Route::get('main-dashboard', 'ExamController@mainDashboard')->name('questions.main-dashboard');
 	Route::get('dashboard', 'ExamController@dashboard')->name('questions.dashboard');
@@ -75,6 +102,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'exam', 'as' => 'exam.'], func
     Route::get('certification', 'ExamController@certification');
 	Route::get('story', 'ExamController@story')->name('questions.story');
 });	
+
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -87,21 +116,115 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('generate-child-category', 'QuestionsController@generateChildCategory')->name('question.generate-child-category');
 		
 	});
-	Route::group(['prefix' => 'choices'], function () {
+    Route::group(['prefix' => 'leads'], function () {
+       Route::get('/', 'LeadController@index')->name('leads');
+    });
+    Route::get('/pdf', 'LeadController@pdf')->name('pdf');
+     Route::group(['prefix' => 'allpdf'], function () {
+        Route::get('/hybrid', 'LeadController@hybrid')->name('allpdf.hybrid');
+        Route::get('/chart', 'LeadController@chart')->name('allpdf.chart');
+        Route::get('/resource', 'LeadController@resource')->name('allpdf.resource');
+        Route::get('/mind', 'LeadController@mind')->name('allpdf.mind');
+    });
+    Route::post('/customer/print-pdf', 'LeadController@printPDF')->name('customer.printpdf');
+
+    Route::group(['prefix' => 'choices'], function () {
 		Route::get('/', 'QuestionsController@indexChoice')->name('choices');
 		Route::get('create', 'QuestionsController@createChoice')->name('choices.create');
-		 Route::post('store', 'QuestionsController@storeChoice')->name('choices.store');
+		Route::post('store', 'QuestionsController@storeChoice')->name('choices.store');
 		Route::get('edit/{id}', 'QuestionsController@editChoice')->name('choices.edit');
 		Route::post('storeedit', 'QuestionsController@storeeditChoice')->name('choices.storeedit');
-
-	});
+    });
+    Route::group(['prefix' => 'parentcat'], function () {
+        Route::get('/', 'ParentcatController@index')->name('parentcat');
+        Route::get('create', 'ParentcatController@create')->name('parentcat.create');
+        Route::post('store', 'ParentcatController@store')->name('parentcat.store');
+        Route::get('edit/{id}', 'ParentcatController@edit')->name('parentcat.edit');
+        Route::post('storeedit', 'ParentcatController@storeedit')->name('parentcat.storeedit');
+    });
 	Route::group(['prefix' => 'results'], function () {
         Route::get('/', 'ResultsController@index')->name('results');
+    });
+	Route::group(['prefix' => 'zone'], function () {
+        Route::get('/', 'ZonesController@index')->name('zone');
+        Route::get('create', 'ZonesController@create')->name('zone.create');
+        Route::post('store', 'ZonesController@store')->name('zone.store');
+        Route::get('edit/{id}', 'ZonesController@edit')->name('zone.edit');
+        Route::post('storeedit', 'ZonesController@storeedit')->name('zone.storeedit');
+        Route::delete('delete/{zoneid}', [
+        'as' => 'zone.delete',
+        'uses' => 'ZonesController@delete'
+        ]);
+    });
+    Route::group(['prefix' => 'product'], function () {
+       Route::get('/', 'ProductsController@index')->name('product');
+        Route::get('create', 'ProductsController@create')->name('product.create');
+        Route::post('store', 'ProductsController@store')->name('product.store');
+        Route::get('edit/{id}', 'ProductsController@edit')->name('product.edit');
+        Route::post('storeedit', 'ProductsController@storeedit')->name('product.storeedit');
+         Route::delete('attrdelete/{attrid}', [
+        'as' => 'product.attrdel',
+        'uses' => 'ProductsController@attrdelete'
+    ]);
+        Route::delete('delete/{productid}', [
+        'as' => 'product.delete',
+        'uses' => 'ProductsController@delete'
+    ]);
         
+    });
+     Route::group(['prefix' => 'job'], function () {
+       Route::get('/', 'JobsController@index')->name('job');
+        Route::get('create', 'JobsController@create')->name('job.create');
+        Route::post('store', 'JobsController@store')->name('job.store');
+        Route::get('edit/{id}', 'JobsController@edit')->name('job.edit');
+        Route::post('storeedit', 'JobsController@storeedit')->name('job.storeedit');
+        Route::delete('delete/{jobid}', [
+        'as' => 'job.delete',
+        'uses' => 'JobsController@delete'
+    ]);
+    Route::post('generate-child-category', 'JobsController@generateChildCategory')->name('job.generate-child-category');
+    });
+     
+    Route::group(['prefix' => 'stockin'], function () {
+       Route::get('/', 'StockinsController@index')->name('stockin');
+        Route::get('create', 'StockinsController@create')->name('stockin.create');
+        Route::post('store', 'StockinsController@store')->name('stockin.store');
+        Route::get('edit/{id}', 'StockinsController@edit')->name('stockin.edit');
+        Route::post('storeedit', 'StockinsController@storeedit')->name('stockin.storeedit');
+        Route::delete('delete/{stockinid}', [
+        'as' => 'stockin.delete',
+        'uses' => 'StockinsController@delete'
+    ]);
 
     });
-	
+    Route::group(['prefix' => 'subcat'], function () {
+       Route::get('/', 'SubcategoryController@index')->name('subcat');
+        Route::get('create', 'SubcategoryController@create')->name('subcat.create');
+        Route::post('store', 'SubcategoryController@store')->name('subcat.store');
+        Route::get('edit/{id}', 'SubcategoryController@edit')->name('subcat.edit');
+        Route::post('storeedit', 'SubcategoryController@storeedit')->name('subcat.storeedit');
+        Route::delete('delete/{subcatid}', [
+        'as' => 'subcat.delete',
+        'uses' => 'SubcategoryController@delete'
+    ]);
 
+    });
+    Route::group(['prefix' => 'stockout'], function () {
+       Route::get('/', 'StockoutsController@index')->name('stockout');
+        Route::get('create', 'StockoutsController@create')->name('stockout.create');
+        Route::post('store', 'StockoutsController@store')->name('stockout.store');
+        Route::get('edit/{id}', 'StockoutsController@edit')->name('stockout.edit');
+        Route::post('storeedit', 'StockoutsController@storeedit')->name('stockout.storeedit');
+        Route::delete('delete/{stockoutid}', [
+        'as' => 'stockout.delete',
+        'uses' => 'StockoutsController@delete'
+    ]);
+    });
+    Route::group(['prefix' => 'report'], function () {
+       Route::get('/', 'ReportsController@index')->name('report');
+           Route::post('showdetails', 'ReportsController@showDetails')->name('report.showdetails');
+    
+    });
     /**
      * Impersonate Routes
      */
@@ -201,6 +324,11 @@ Route::group(['middleware' => 'auth'], function () {
     /**
      * User Management
      */
+    Route::get('/analytics', [
+        'as' => 'home.analytics',
+        'uses' => 'HomeController@googleAnalytics'
+    ]);
+   
     Route::get('user', [
         'as' => 'user.list',
         'uses' => 'UsersController@index'

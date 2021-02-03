@@ -17,7 +17,7 @@
 @include('partials.messages')
 
 {!! Form::open(['route' => 'user.store', 'files' => true, 'id' => 'user-form']) !!}
-    <div class="card">
+    <!-- <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
@@ -33,8 +33,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> -->
+ 
     <div class="card">
         <div class="card-body">
             <div class="row">

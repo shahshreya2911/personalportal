@@ -13,7 +13,7 @@
 
 <div class="row">
 
-    <div class="col-xl-3 col-md-6">
+  <!--   <div class="col-xl-3 col-md-6">
         <div class="card widget">
             <div class="card-body">
                 <div class="row">
@@ -79,12 +79,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 
 <div class="row">
-    <div class="col-lg-8 col-md-12">
+   <!--  <div class="col-lg-8 col-md-12">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">@lang('app.registration_history')</h5>
@@ -126,7 +126,7 @@
                 @endif
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 @stop

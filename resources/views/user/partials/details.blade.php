@@ -23,16 +23,7 @@
     </div>
 
     <div class="col-md-6">
-        <div class="form-group">
-            <label for="birthday">@lang('app.date_of_birth')</label>
-            <div class="form-group">
-                <input type="text"
-                       name="birthday"
-                       id='birthday'
-                       value="{{ $edit && $user->birthday ? $user->present()->birthday : '' }}"
-                       class="form-control" />
-            </div>
-        </div>
+   
         <div class="form-group">
             <label for="phone">@lang('app.phone')</label>
             <input type="text" class="form-control" id="phone"
@@ -43,10 +34,7 @@
             <input type="text" class="form-control" id="address"
                    name="address" placeholder="@lang('app.address')" value="{{ $edit ? $user->address : '' }}">
         </div>
-        <div class="form-group">
-            <label for="address">@lang('app.country')</label>
-            {!! Form::select('country_id', $countries, $edit ? $user->country_id : '', ['class' => 'form-control']) !!}
-        </div>
+        
     </div>
 
     @if ($edit)
@@ -58,3 +46,4 @@
         </div>
     @endif
 </div>
+ 

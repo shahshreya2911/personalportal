@@ -15,10 +15,7 @@ class Categories extends Model
 	
 	protected $table = 'categories';
 	
-	public function parentCategory()
-    {
-        return $this->belongsTo(ParentCategory::class, 'category_id', 'id');
-    }
+	
 	
 	
 }

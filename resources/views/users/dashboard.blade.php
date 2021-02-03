@@ -13,7 +13,7 @@
 <div class="question-list">
 
 
-	<div class="row">
+<!-- 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
 				<div class="panel-heading"></div>
@@ -58,11 +58,11 @@
 				
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 @stop
 
-@section('scripts')
+<!-- @section('scripts')
 	<script>
 		$('#next').click(function () {
 			category_id = $('#category_id').val();
@@ -83,4 +83,4 @@
 			});
 		});
 	</script>	
-@stop
+@stop -->

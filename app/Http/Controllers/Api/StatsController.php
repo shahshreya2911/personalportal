@@ -37,7 +37,7 @@ class StatsController extends ApiController
      */
     public function index()
     {
-        if (Auth::user()->hasRole('Admin')) {
+        if (Auth::user()->hasRole('Admin') || Auth::user()->hasRole('SuperAdmin')) {
             return $this->adminStats();
         }
 

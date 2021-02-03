@@ -15,7 +15,7 @@ class UpdateDetailsRequest extends Request
     public function rules()
     {
         return [
-            'birthday' => 'nullable|date',
+           // 'birthday' => 'nullable|date',
             'role_id' => 'required|exists:roles,id'
         ];
     }

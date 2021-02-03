@@ -32,7 +32,7 @@ interface UserRepository
      * @param $email
      * @return null|User
      */
-    public function findByEmail($email);
+    //public function findByEmail($email);
 
     /**
      * Find user registered via social network.

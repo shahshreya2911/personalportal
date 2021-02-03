@@ -14,7 +14,7 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         $adminRole = Role::where('name', 'Admin')->first();
-
+        $SuperadminRole = Role::where('name', 'SuperAdmin')->first();
         $permissions[] = Permission::create([
             'name' => 'users.manage',
             'display_name' => 'Manage Users',
@@ -65,5 +65,6 @@ class PermissionsSeeder extends Seeder
         ]);
 
         $adminRole->attachPermissions($permissions);
+        $SuperadminRole->attachPermissions($permissions);
     }
 }
